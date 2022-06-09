@@ -1,19 +1,32 @@
 #include <iostream>
 #include <fstream>
 
-struct Adress
+class Address
 {
-    std::string city;
-    std::string street;
-    int building;
-    int appartment;
-
-    void print() {
-        std::cout << this->city << ", " << 
-        this->street << ", " << 
-        this->building << ", " << 
-        this->appartment << "\n";
-    }
+    public:
+        Address() {
+            this->city = "0";
+            this->street = "0";
+            this->building = 0;
+            this->appartment = 0;
+        }
+        void setAddress(std::string city, std::string street, int building, int appartment) {
+            this->city = city;
+            this->street = street;
+            this->building = building;
+            this->appartment = appartment;
+        }
+        void print() {
+            std::cout << this->city << ", " << 
+            this->street << ", " << 
+            this->building << ", " << 
+            this->appartment << "\n";
+        }
+    private:
+        std::string city;
+        std::string street;
+        int building;
+        int appartment;
 };
 
 
@@ -27,17 +40,22 @@ int main() {
         return 1;
     }
 
-    Adress *list = new Adress[count];
+    Address *list = new Address[count];
     for (int i = 0; i < count; i++) {
-        Adress *p = (list + i);
-        input >> p->city;
-        input >> p->street;
-        input >> p->building;
-        input >> p->appartment;
+        std::string city, street;
+        int building, appartment;
+
+        input >> city;
+        input >> street;
+        input >> building;
+        input >> appartment;
+
+        Address *p = (list + i);
+        p->setAddress(city, street, building, appartment);
     }
     for (int i = count - 1; i >= 0; i--) {
-        Adress a = *(list + i);
-        a.print();
+        Address *p = (list + i);
+        p->print();
     }
     delete[] list;
 
